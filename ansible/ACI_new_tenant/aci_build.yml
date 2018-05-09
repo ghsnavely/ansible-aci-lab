@@ -47,7 +47,7 @@
         use_ssl: yes
         export_policy: "{{ backup_name_var }}"
         max_count: 10
-        description: Backups taken before new HNS configs are applied.
+        description: Backups taken before new configs are applied.
 
     - name: PRE-BUILD TASK 2 - VALIDATE SNAPSHOT in "{{ backup_name_var }}"
       aci_config_snapshot:

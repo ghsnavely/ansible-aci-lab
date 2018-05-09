@@ -2,15 +2,15 @@
 
 ### TENANT INFORMATION
 ### Descriptions must be between " " to work correctly
-tenant_var: TestTenant
-tenant_description: "Test Tenant1"
+tenant_var: TestTenant2
+tenant_description: "Test Tenant2"
 
 ### Backup Name
-backup_name_var: "PreTenant_1"
+backup_name_var: "PreTenant_2"
 
 ### VRF INFORMATION create single VRF
 ### Descriptions must be between " " to work correctly
-vrf_var: TestTenantVRF
+vrf_var: TestTenant2VRF
 vrf_description: "PRIVATE VRF"
 
 ### APPLICATION PROFILE INFORMATION
@@ -96,7 +96,7 @@ l3out_domain: L3out_test
 # Leaf 1 information
 l3out_leaf1: 103
 l3out_leaf1_int: 40
-l3out_leaf1_vlan: 501
+l3out_leaf1_vlan: 502
 l3out_leaf1_ip_addr: "10.241.160.225/30"
 l3out_leaf1_bgp_peer_ip: 10.241.160.226
 l3out_leaf1_loopback: 10.241.160.253
@@ -105,7 +105,7 @@ l3out_leaf1_loopback: 10.241.160.253
 # Leaf 2 Information
 l3out_leaf2: 104
 l3out_leaf2_int: 40
-l3out_leaf2_vlan: 501
+l3out_leaf2_vlan: 502
 l3out_leaf2_ip_addr: "10.241.160.229/30"
 l3out_leaf2_bgp_peer_ip: 10.241.160.230
 l3out_leaf2_loopback: 10.241.160.254
