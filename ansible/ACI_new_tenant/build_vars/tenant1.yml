@@ -6,7 +6,7 @@ tenant_var: TestTenant
 tenant_description: "Test Tenant1"
 
 ### Backup Name
-backup_name_var: PreTenant_1
+backup_name_var: "PreTenant_1"
 
 ### VRF INFORMATION create single VRF
 ### Descriptions must be between " " to work correctly

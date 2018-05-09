@@ -37,7 +37,7 @@
         
 # Make Snapshot for current configuration - List Current Snapshots in {{backup_name_var}}
 
-    - name: PRE-BUILD TASK 1 - Creating a new SNAPSHOT in {{ backup_name_var }}
+    - name: PRE-BUILD TASK 1 - Creating a new SNAPSHOT in "{{ backup_name_var }}"
       aci_config_snapshot:
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
@@ -49,7 +49,7 @@
         max_count: 10
         description: Backups taken before new HNS configs are applied.
 
-    - name: PRE-BUILD TASK 2 - VALIDATE SNAPSHOT in {{ backup_name_var }}
+    - name: PRE-BUILD TASK 2 - VALIDATE SNAPSHOT in "{{ backup_name_var }}"
       aci_config_snapshot:
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
@@ -60,7 +60,7 @@
         export_policy: "{{ backup_name_var }}"
       register: fabric_snapshot
 
-    - name: PRE-BUILD TASK 2b - CREATE Filterd Json list for SNAPSHOTS in {{ backup_name_var }}
+    - name: PRE-BUILD TASK 2b - CREATE Filterd Json list for SNAPSHOTS in "{{ backup_name_var }}"
       set_fact:
         snapshot_list: "{{ fabric_snapshot| json_query('current[].configSnapshotCont. {Name: attributes.name, Backup_Name: children[].configSnapshot.attributes.name ,Backup_File: children[].configSnapshot.attributes.fileName}') }}"
     - name: PRE-BUILD TASK 2c - PRINT SNAPSHOT LIST to screen
