@@ -1,0 +1,109 @@
+---
+
+### TENANT INFORMATION
+### Descriptions must be between " " to work correctly
+tenant_var: TestTenant
+tenant_description: "Test Tenant1"
+
+
+### VRF INFORMATION create single VRF
+### Descriptions must be between " " to work correctly
+vrf_var: TestTenantVRF
+vrf_description: "PRIVATE VRF"
+
+### APPLICATION PROFILE INFORMATION
+### Descriptions must be between " " to work correctly
+
+### to add more application profiles add a new item under the apps: like below
+#apps: 
+#  - app_profile_var: {{application_profile_name}}
+#    app_profile_description: "{{description}}"
+#  - app_profile_var: {{application_profile_2_name}}
+#    app_profile_description: "{{description_2}}"
+#
+#
+
+apps:
+  - app_profile_var: RootApps
+    app_profile_description: "applications_01"
+  - app_profile_var: RootApps02
+    app_profile_description: "applications_02"    
+# this VAR needed to make post validation easier
+AAEP_var: TestTenantAAEP
+
+### BRIDGE DOMAIN INFORMATION
+### Subnet mask is the CIDR format without the / for example /24 would just be 24
+### using the same name for the BD/EPG in this setup
+### Descriptions must be between " " to work correctly
+### on net_scope_var use private if it is not routable out a L3out public if it needs to be routeable out an L3out
+
+### to add more bridge domains add a new item under the bd: like below
+#bd: 
+#  - bd_epg_var: {{name}}
+#    bd_app_profile_var: {{application name}}
+#    bd_description: "{{description}}"
+#    gateway_ip_var: {{default_gateway_ip}}
+#    subnet_mask_var: {{SubnetMask_CIDR}}
+#    net_scope_var: {{ private/public}}
+#    AAEP_var: {{aaep_to_use}}
+#    vlan_var: {{vlan_on_leaf_port}}
+#    domain_var: {{physical_domain_to_use}}
+#
+# 
+
+bd:
+  - bd_epg_var: bd-test1
+    bd_app_profile_var: RootApps
+    bd_description: "testing loops"
+    gateway_ip_var: 10.241.160.62
+    subnet_mask_var: 27
+    net_scope_var: private
+    AAEP_var: TestTenantAAEP
+    vlan_var: 500
+    domain_var: TestTenantAAEP
+  - bd_epg_var: bd-test2
+    bd_app_profile_var: RootApps
+    bd_description: "testing loops2"
+    gateway_ip_var: 10.241.160.92
+    subnet_mask_var: 27
+    net_scope_var: private
+    AAEP_var: TestTenantAAEP
+    vlan_var: 501
+    domain_var: TestTenantAAEP
+  - bd_epg_var: bd-test3
+    bd_app_profile_var: RootApps  
+    bd_description: "testing loops3"
+    gateway_ip_var: 10.241.160.126
+    subnet_mask_var: 27
+    net_scope_var: private
+    AAEP_var: TestTenantAAEP
+    vlan_var: 502
+    domain_var: TestTenantAAEP
+
+
+
+
+### L3Out Information
+### Descriptions must be between " " to work correctly
+# bgp asn must be in "" line "65000" format to work with playbook
+
+bgp_neighbor_asn: "65533"
+l3out_domain: L3out_test
+
+# Leaf 1 information
+l3out_leaf1: 103
+l3out_leaf1_int: 40
+l3out_leaf1_vlan: 500
+l3out_leaf1_ip_addr: "10.241.160.225/30"
+l3out_leaf1_bgp_peer_ip: 10.241.160.226
+l3out_leaf1_loopback: 10.241.160.253
+
+
+# Leaf 2 Information
+l3out_leaf2: 104
+l3out_leaf2_int: 40
+l3out_leaf2_vlan: 501
+l3out_leaf2_ip_addr: "10.241.160.229/30"
+l3out_leaf2_bgp_peer_ip: 10.241.160.230
+l3out_leaf2_loopback: 10.241.160.254
+
