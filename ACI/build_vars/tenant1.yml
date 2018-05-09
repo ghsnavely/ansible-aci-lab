@@ -50,7 +50,8 @@ AAEP_var: TestTenantAAEP
 #    domain_var: {{physical_domain_to_use}}
 #
 # 
-
+# this expects for a single Domain and AAEP to be used, if you had more you would need to create multiple
+# variables to account for this, or some other looping task than is done here
 bd:
   - bd_epg_var: bd-test1
     bd_app_profile_var: RootApps
@@ -60,7 +61,7 @@ bd:
     net_scope_var: private
     AAEP_var: TestTenantAAEP
     vlan_var: 500
-    domain_var: TestTenantDOMAIN
+    domain_var: TestTenantDomain
   - bd_epg_var: bd-test2
     bd_app_profile_var: RootApps
     bd_description: "testing loops2"
@@ -69,7 +70,7 @@ bd:
     net_scope_var: private
     AAEP_var: TestTenantAAEP
     vlan_var: 501
-    domain_var: TestTenantDOMAIN
+    domain_var: TestTenantDomain
   - bd_epg_var: bd-test3
     bd_app_profile_var: RootApps  
     bd_description: "testing loops3"
@@ -78,7 +79,7 @@ bd:
     net_scope_var: private
     AAEP_var: TestTenantAAEP
     vlan_var: 502
-    domain_var: TestTenantDOMAIN
+    domain_var: TestTenantDomain
 
 
 
