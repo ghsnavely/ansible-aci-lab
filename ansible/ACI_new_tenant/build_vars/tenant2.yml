@@ -89,7 +89,7 @@ bd:
     subnet_mask_var: 27
     net_scope_var: private
     AAEP_var: TestTenantAAEP
-    vlan_var: 512
+    vlan_var: 513
     domain_var: TestTenantDomain
 
 
