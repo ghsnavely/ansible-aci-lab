@@ -60,7 +60,7 @@ bd:
     net_scope_var: private
     AAEP_var: TestTenantAAEP
     vlan_var: 500
-    domain_var: TestTenantAAEP
+    domain_var: TestTenantDOMAIN
   - bd_epg_var: bd-test2
     bd_app_profile_var: RootApps
     bd_description: "testing loops2"
@@ -69,7 +69,7 @@ bd:
     net_scope_var: private
     AAEP_var: TestTenantAAEP
     vlan_var: 501
-    domain_var: TestTenantAAEP
+    domain_var: TestTenantDOMAIN
   - bd_epg_var: bd-test3
     bd_app_profile_var: RootApps  
     bd_description: "testing loops3"
@@ -78,7 +78,7 @@ bd:
     net_scope_var: private
     AAEP_var: TestTenantAAEP
     vlan_var: 502
-    domain_var: TestTenantAAEP
+    domain_var: TestTenantDOMAIN
 
 
 
