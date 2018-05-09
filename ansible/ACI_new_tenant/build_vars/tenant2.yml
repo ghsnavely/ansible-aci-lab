@@ -62,7 +62,7 @@ bd:
     subnet_mask_var: 27
     net_scope_var: private
     AAEP_var: TestTenantAAEP
-    vlan_var: 500
+    vlan_var: 510
     domain_var: TestTenantDomain
   - bd_epg_var: bd-test2
     bd_app_profile_var: RootApps01
@@ -71,7 +71,7 @@ bd:
     subnet_mask_var: 27
     net_scope_var: private
     AAEP_var: TestTenantAAEP
-    vlan_var: 501
+    vlan_var: 511
     domain_var: TestTenantDomain
   - bd_epg_var: bd-test3
     bd_app_profile_var: RootApps02  
@@ -80,7 +80,7 @@ bd:
     subnet_mask_var: 27
     net_scope_var: private
     AAEP_var: TestTenantAAEP
-    vlan_var: 502
+    vlan_var: 512
     domain_var: TestTenantDomain
 
 
