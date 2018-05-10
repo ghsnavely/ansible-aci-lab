@@ -21,7 +21,18 @@
       private: no
 #    - name: "aci_user_pass"
 #      prompt: "Password"
-  
+#Expecting just the name of the var file with the extention (.yml in this case)
+    - name: "var_file_var"
+      prompt: "What is the name of your Variable File?"
+      private: no
+
+# PULLING IN VARIABLES FOR CONFIGURATION
+# Can change the directory as needed 
+  tasks:
+    - name: OBTAIN CONFIG VARIABLES
+      include_vars: 
+        file: ./build_vars/{{ var_file_var }}
+         
 # Make Snapshot for current configuration - List Current Snapshots in {{backup_name_var}}
 
     - name: PRE-BUILD TASK 1 - Creating a new SNAPSHOT in "{{ backup_name_var }}"
