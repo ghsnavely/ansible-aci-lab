@@ -1,6 +1,6 @@
-# ansible Lab testing examples
+# Ansible use case examples
 
-This is where I keep Proof of Concept ansible configuration items for review
+Ansible proof of concept configuration playbooks for different platforms
 
 ## Current Labs
 
