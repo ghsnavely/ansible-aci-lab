@@ -4,6 +4,6 @@ This is where I keep Proof of Concept ansible configuration items for review
 
 ## Current Labs
 
-### ACI_new_tenant
+### ciscoACI
 
-build out of a new tenant within ACI using ansible 2.5 modules available
+Ansible playbook examples for Cisco ACI (tested on 3.2 EFT)
