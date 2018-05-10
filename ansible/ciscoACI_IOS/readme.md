@@ -4,7 +4,7 @@
 
 *all playbook items build with ansible 2.5*
 **aci_build_validate.yml**
-    This playbook builds a new tenant from scratch with bridge domain/end point group being named the same.
+    This is a very basic playbook that prompts for configure items and then builds a new tenant, several items are hard coded in the yml file (they should be noted with comments)
     It uses aci_rest module to do rest API for configurations that do not have a module.
     it has a second play which has IOS steps
     It uses a certificate setup for authentication

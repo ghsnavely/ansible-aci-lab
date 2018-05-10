@@ -1,4 +1,4 @@
-# Play 2 Runs a validation agaisnt the Core Router to see if the network for the default gatway is there
+# Runs a validation agaisnt the Core Router to see if the network for the default gatway is there
 - name: VALIDATE Routing
   hosts: ios
   connection: network_cli
