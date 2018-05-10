@@ -1,0 +1,38 @@
+---
+# This playbook is an example for ACI build automation using for a tenant created by Garrett Snavely
+# This playbook does a Snapshot of the fabric then deploys configuration then runs visual validation
+# This playbook expects the following file setup (replace ansible_dir with where ever you put it)
+# ~/ansible_dir/ansible.cfg
+# ~/ansible_dir/inventory
+# ~/ansible_dir/aci_build.yml
+# ~/ansible_dir/build_vars/tenant_file.yml
+#            
+
+- name: BUILD out of new tenant base infrastructure
+# hosts matches up to group in the inventory file
+  hosts: apic_group
+  connection: local
+  gather_facts: no
+
+# prompting for username password for this Play
+  vars_prompt:
+    - name: "aci_user_id"
+      prompt: "UserID"
+      private: no
+#    - name: "aci_user_pass"
+#      prompt: "Password"
+  
+# Make Snapshot for current configuration - List Current Snapshots in {{backup_name_var}}
+
+    - name: PRE-BUILD TASK 1 - Creating a new SNAPSHOT in "{{ backup_name_var }}"
+      aci_config_snapshot:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        state: present
+        validate_certs: no
+        use_ssl: yes
+        export_policy: "{{ backup_name_var }}"
+        max_count: 10
+        description: Backups taken before new configs are applied.
+        output_level: debug
