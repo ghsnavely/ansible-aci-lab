@@ -81,7 +81,7 @@
         tenant: "{{ tenant_var }}"
         description: "{{ tenant_description }}"
 
-    # HNS is expected to not use policy enforcement in fabric
+    # This is setup to not use policy enforcement in fabric
     # if you want to use contracts change policy_control_preference to enforced
     - name: TASK 2 - BUILD Routing {{ vrf_var }} for {{ tenant_var }} on {{ inventory_hostname }}
       aci_vrf:
