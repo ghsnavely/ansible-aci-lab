@@ -2,6 +2,7 @@
 
 ## Playbooks
 
+*all playbook items build with ansible 2.5*
 **aci_new_build.yml**
     This playbook builds a new tenant from scratch with bridge domain/end point group being named the same.
     It uses aci_rest module to do rest API for configurations that do not have a module.
