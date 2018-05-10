@@ -211,7 +211,7 @@
 # Creates a Filtered list from json output
     - name: POST TASK 1b - Build Application Profile List
       set_fact:
-        ap_list: "{{ tenant_aps | json_query('current[].fvTenant. {Tenant: attributes.name Application_Profile: children[].fvAp.attributes.name EPG: children[].fvAp.children[].fvAEPg.attributes.name VMM: children[].fvAp.children[].fvAEPg.children[].fvRsDomAtt.attributes.tDn }
+        ap_list: "{{ tenant_aps | json_query('current[].fvTenant. {Tenant: attributes.name Application_Profile: children[].fvAp.attributes.name EPG: children[].fvAp.children[].fvAEPg.attributes.name DOMAIN: children[].fvAp.children[].fvAEPg.children[].fvRsDomAtt.attributes.tDn }
 ') }}"
 
 # Print to Screen Filtered list
