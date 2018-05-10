@@ -197,10 +197,11 @@
       prompt: "What is the VRF?"
       private: no    
   tasks:
-  
+
+    # hostvar apic is hard coded because PoC
     - name: TASK 1 - Validate Route Exists
       ios_command:
-        commands: show ip route vrf {{ vrf_name }} {{ hostvars['{{ inventory_hostname }}']['network_var'] }}
+        commands: show ip route vrf {{ vrf_name }} {{ hostvars['apic']['network_var'] }}
       register: validate_rtr
       when: ansible_network_os == 'ios'
 
