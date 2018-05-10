@@ -1,0 +1,207 @@
+---
+#Two Plays in Playbook
+
+#Play 1 Get Variables - Create Backup - Deploy Configuration to ACI - Validate Configuration is present
+
+- name: ACI BUILD JOB
+  hosts: apic_group
+  connection: local
+  gather_facts: no
+  
+  vars_prompt:
+    - name: "aci_user_id"
+      prompt: "UserID"
+    - name: "tenant_var"
+      prompt: "What is the Tenant?"
+      private: no
+    - name: "app_profile_var"
+      prompt: "What is the Applicaiton Profile name?"
+      private: no
+    - name: "epg_var"
+      prompt: "What is the EPG name?"
+      private: no      
+    - name: "gateway_ip_var"
+      prompt: "What is the Bridge Domain gateway IP address?"
+      private: no
+    - name: "subnet_mask_var"
+      prompt: "What is the Subnet Mask? (CIDR format)"
+      private: no
+     
+# Make Bridge Domain default gateway a persistant VAR to be used in Play2
+  tasks:
+    - name: Make VAR persistant
+      set_fact: 
+        network_var: "{{ gateway_ip_var }}"
+
+# Make Snapshot for current configuration - List Current Snapshots in ansible_config_backup
+
+    - name: PRE-BUILD TASK 1 - SNAPSHOT
+      aci_config_snapshot:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        state: present
+        validate_certs: no
+        use_ssl: yes
+        export_policy: ansible_config_backup
+        max_count: 10
+        description: Backups taken before new ansible configs are applied.
+
+    - name: PRE-BUILD TASK 2 - VALIDATE SNAPSHOT
+      aci_config_snapshot:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        state: query
+        validate_certs: no
+        use_ssl: yes        
+        export_policy: ansible_config_backup
+      register: fabric_snapshot
+
+    - name: PRE-BUILD TASK 2b - CREATE SNAPSHOT LIST
+      set_fact:
+        snapshot_list: "{{ fabric_snapshot| json_query('current[].configSnapshotCont. {Name: attributes.name, Backup_Name: children[].configSnapshot.attributes.name ,Backup_File: children[].configSnapshot.attributes.fileName}') }}"
+    - name: PRE-BUILD TASK 2c - PRINT SNAPSHOT LIST
+      debug: var=snapshot_list
+
+
+# Build includes variables and hard coded items specific to jhalabs
+# Static items are
+### L3-OUT - SHARED-L3OUT
+### IP scope - public
+### VRF - COMMON-SHARED-VRF
+# Deploys to ACI fabric
+    - name: TASK 1 - BUILD New Tenant
+      aci_tenant:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        tenant: "{{ tenant_var }}"
+        validate_certs: no
+        use_ssl: yes
+        state: present
+    #VRF Hard coded here because PoC
+    - name: TASK 2a - BUILD New L2/L3 Bridge Domain
+      aci_bd:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        validate_certs: no
+        use_ssl: yes
+        tenant: "{{ tenant_var }}"
+        bd: "{{ epg_var }}"
+        state: present
+        vrf: COMMON-SHARED-VRF
+    - name: TASK 2b - BUILD ADD IP Gateway to L2/L3 Bridge Domain
+      aci_bd_subnet:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        validate_certs: no
+        use_ssl: yes
+        tenant: "{{ tenant_var }}"
+        bd: "{{ epg_var }}"
+        state: present
+        gateway: "{{ gateway_ip_var }}"
+        mask: "{{ subnet_mask_var }}"
+        scope: public
+    # L3out hard coded here because PoC
+    - name: TASK 2c - BUILD ADD L3Out to L2/L3 Bridge Domain        
+      aci_bd_to_l3out:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        validate_certs: no
+        use_ssl: yes
+        tenant: "{{ tenant_var }}"
+        bd: "{{ epg_var }}"
+        l3out: SHARED-L3OUT
+        state: present 
+    - name: TASK 3 - BUILD New Application Profile
+      aci_ap:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        validate_certs: no
+        use_ssl: yes
+        tenant: "{{ tenant_var }}"
+        ap: "{{ app_profile_var }}"
+        state: present
+    - name: TASK 4 - BUILD New EPG
+      aci_epg:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        validate_certs: no
+        use_ssl: yes
+        tenant: "{{ tenant_var }}"
+        ap: "{{ app_profile_var }}"
+        bd: "{{ epg_var }}"
+        epg: "{{ epg_var}}"
+        state: present
+    # vmm domain is hard coded here, because PoC    
+    - name: TASK 5 - ADD VMM to NEW EPG       
+      aci_epg_to_domain:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        validate_certs: no
+        use_ssl: yes
+        tenant: "{{ tenant_var }}"
+        ap: "{{ app_profile_var }}"        
+        epg: "{{ epg_var }}"
+        domain: aci-vc6501
+        domain_type: vmm
+        vm_provider: vmware
+        state: present
+
+# Pulls the json for Tenant 
+    - name: POST TASK 1 - GET ACI Application Profiles for {{ tenant_var }} from {{ inventory_hostname }}
+      aci_ap:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        tenant: "{{ tenant_var }}"
+        validate_certs: no
+        use_ssl: yes
+        state: query
+      register: tenant_aps
+
+# Creates a Filtered list for Json
+    - name: POST TASK 2 - Build Application Profile List
+      set_fact:
+        ap_list: "{{ tenant_aps | json_query('current[].fvTenant. {Tenant: attributes.name Application_Profile: children[].fvAp.attributes.name EPG: children[].fvAp.children[].fvAEPg.attributes.name VMM: children[].fvAp.children[].fvAEPg.children[].fvRsDomAtt.attributes.tDn }
+') }}"
+
+# Print to Screen Filtered list
+    - name: POST TASK 3 - PRINT Application Profile List
+      debug: var=ap_list
+
+
+    
+# Play 2 Runs a validation agaisnt the Core Router to see if the network for the default gatway is there
+- name: VALIDATE Routing
+  hosts: ios
+  connection: network_cli
+  gather_facts: no
+
+# prompting for username password for this Play
+  vars_prompt:
+    - name: "ios_username_var"
+      prompt: "UserID"
+      private: no
+    - name: "ios_password_var"
+      prompt: "Password"
+      private: yes
+    - name: "vrf_name"
+      prompt: "What is the VRF?"
+      private: no    
+  tasks:
+  
+    - name: TASK 1 - Validate Route Exists
+      ios_command:
+        commands: show ip route vrf {{ vrf_name }} {{ hostvars['{{ inventory_hostname }}']['network_var'] }}
+      register: validate_rtr
+      when: ansible_network_os == 'ios'
+
+    - debug: msg="{{validate_rtr.stdout_lines}}"   
