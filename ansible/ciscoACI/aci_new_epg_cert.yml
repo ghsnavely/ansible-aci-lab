@@ -42,7 +42,6 @@
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
         private_key: "~/{{ aci_user_id }}.key"
-        certificant_name: "{{ aci_user_id }}"
         state: present
         validate_certs: no
         use_ssl: yes
@@ -55,7 +54,6 @@
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
         private_key: "~/{{ aci_user_id }}.key"
-        certificant_name: "{{ aci_user_id }}"
         state: query
         validate_certs: no
         use_ssl: yes        
@@ -81,7 +79,6 @@
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
         private_key: "~/{{ aci_user_id }}.key"
-        certificant_name: "{{ aci_user_id }}"
         state: present
         validate_certs: no
         use_ssl: yes        
@@ -96,7 +93,6 @@
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
         private_key: "~/{{ aci_user_id }}.key"
-        certificant_name: "{{ aci_user_id }}"
         state: present        
         validate_certs: no
         use_ssl: yes 
@@ -112,7 +108,6 @@
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
         private_key: "~/{{ aci_user_id }}.key"
-        certificant_name: "{{ aci_user_id }}"
         state: present
         validate_certs: no
         use_ssl: yes
@@ -128,7 +123,6 @@
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
         private_key: "~/{{ aci_user_id }}.key"
-        certificant_name: "{{ aci_user_id }}"
         state: present        
         validate_certs: no
         use_ssl: yes
@@ -144,7 +138,6 @@
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
         private_key: "~/{{ aci_user_id }}.key"
-        certificant_name: "{{ aci_user_id }}"
         state: present        
         validate_certs: no
         use_ssl: yes
@@ -158,7 +151,6 @@
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
         private_key: "~/{{ aci_user_id }}.key"
-        certificant_name: "{{ aci_user_id }}"
         state: present        
         validate_certs: no
         use_ssl: yes
@@ -213,7 +205,6 @@
         tenant: "{{ tenant_var }}"
         validate_certs: no
         use_ssl: yes
-        certificant_name: "{{ aci_user_id }}"
         state: query
       register: tenant_aps
 
