@@ -1,4 +1,4 @@
-# Ansible Playbook examples to configure new items on Cisco ACI
+# Ansible Playbook examples to configure Cisco ACI
 
 ## Playbooks
 
