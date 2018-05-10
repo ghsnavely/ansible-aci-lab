@@ -11,6 +11,7 @@
   vars_prompt:
     - name: "aci_user_id"
       prompt: "UserID"
+      private: no
     - name: "tenant_var"
       prompt: "What is the Tenant?"
       private: no
