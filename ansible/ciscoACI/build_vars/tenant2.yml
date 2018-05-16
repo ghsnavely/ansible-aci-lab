@@ -82,24 +82,24 @@ bd:
     AAEP_var: TestTenantAAEP
     vlan_var: 512
     domain_var: TestTenantDomain
-#  - bd_epg_var: bd-test4
-#    bd_app_profile_var: RootApps02  
-#    bd_description: "testing loops4"
-#    gateway_ip_var: 10.241.160.158
-#    subnet_mask_var: 27
-#    net_scope_var: private
-#    AAEP_var: TestTenantAAEP
-#    vlan_var: 513
-#   domain_var: TestTenantDomain
-#- bd_epg_var: bd-test5
-#   bd_app_profile_var: RootApps02  
-#   bd_description: "testing loops5"
-#   gateway_ip_var: 10.241.160.227
-#   subnet_mask_var: 27
-#   net_scope_var: private
-#   AAEP_var: TestTenantAAEP
-#    vlan_var: 514
-#    domain_var: TestTenantDomain
+  - bd_epg_var: bd-test4
+    bd_app_profile_var: RootApps02  
+    bd_description: "testing loops4"
+    gateway_ip_var: 10.241.160.158
+    subnet_mask_var: 27
+    net_scope_var: private
+    AAEP_var: TestTenantAAEP
+    vlan_var: 513
+    domain_var: TestTenantDomain
+  - bd_epg_var: bd-test5
+    bd_app_profile_var: RootApps02  
+    bd_description: "testing loops5"
+    gateway_ip_var: 10.241.160.227
+    subnet_mask_var: 27
+    net_scope_var: private
+    AAEP_var: TestTenantAAEP
+    vlan_var: 514
+    domain_var: TestTenantDomain
 
 
 ### L3Out Information
