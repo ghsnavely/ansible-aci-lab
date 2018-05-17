@@ -153,7 +153,7 @@
         bd: "{{ item.bd_epg_var }}"
         epg: "{{ item.bd_epg_var}}"
       with_items: "{{ bridgeDomainEpg }}"
-    - name: TASK 5b - ADD Physical Domain to NEW EPGs on {{ inventory_hostname }}    
+    - name: TASK 5b - ADD VMM Domain to NEW EPGs on {{ inventory_hostname }}    
       aci_epg_to_domain:
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
@@ -168,22 +168,6 @@
         domain_type: "{{ item.domain_type_var }}"
         vm_provider: "{{ item.vm_provider_var }}"
       with_items: "{{ bridgeDomainEpg }}"
-
-    # vmm domain is hard coded here, because PoC    
-    - name: TASK 5 - ADD VMM to NEW EPG       
-      aci_epg_to_domain:
-        hostname: "{{ inventory_hostname }}"
-        username: "{{ aci_user_id }}"
-        private_key: "~/{{ aci_user_id }}.key"
-        validate_certs: no
-        use_ssl: yes
-        tenant: "{{ tenant_var }}"
-        ap: "{{ app_profile_var }}"        
-        epg: "{{ epg_var }}"
-        domain: aci-vc6501
-        domain_type: vmm
-        vm_provider: vmware
-        state: present
 
 # Pulls the json for Tenant 
     - name: POST TASK 1 - GET ACI Application Profiles for {{ tenant_var }} from {{ inventory_hostname }}
