@@ -121,7 +121,7 @@
         tenant: "{{ tenant_var }}"
         bd: "{{ item.bd_epg_var }}"
         l3out: "{{ l3out_name_var }}"
-      with_items: "{{ bd }}"
+      with_items: "{{ bridgeDomainEpg }}"
 
     #BUILD Application Profiles
     # These are using a Loop ( with_items ) to create more than one application profile
