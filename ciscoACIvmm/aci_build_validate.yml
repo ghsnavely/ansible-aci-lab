@@ -93,7 +93,7 @@
         bd: "{{ item.bd_epg_var }}"
         description: "{{ item.bd_description }}"
         vrf: "{{ vrf_var }}"          
-      with_items: "{{ bd }}"  
+      with_items: "{{ bridgeDomainEpg }}"  
 
     - name: TASK 2b - BUILD ADD IP Gateway to L2/L3 Bridge Domain on {{ inventory_hostname }}
       aci_bd_subnet:
@@ -108,7 +108,7 @@
         gateway: "{{ item.gateway_ip_var }}"
         mask: "{{ item.subnet_mask_var }}"
         scope: "{{ item.net_scope_var }}"       
-      with_items: "{{ bd }}"
+      with_items: "{{ bridgeDomainEpg }}"
     
     - name: TASK 2c - BUILD ADD L3Out to L2/L3 Bridge Domain        
       aci_bd_to_l3out:
@@ -232,7 +232,7 @@
     - name: OBTAIN CONFIG VARIABLES
       include_vars: 
         file: ./tenant_vars/{{ hostvars['apic']['tenant_varfile'] }}
-        
+
     # hostvar ['apic'] is hard coded item
     - name: TASK 1 - Validate Route Exists
       ios_command:
