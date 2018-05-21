@@ -25,10 +25,6 @@
       include_vars: 
         file: ./tenant_vars/{{ var_file_var }}
 
-  #using this so ic an
-    - name: Make VAR file name persistant to be used in play 2
-      set_fact: 
-        tenant_varfile: "{{ var_file_var }}"
 # Make Snapshot for current configuration - List Current Snapshots in "{{ tenant_var }}"
 
     - name: PRE-BUILD TASK 1 - SNAPSHOT
@@ -190,43 +186,3 @@
 # Print to Screen Filtered list
     - name: POST TASK 2 - PRINT Application Profile List
       debug: var=ap_list
-
-
-    
-# Play 2 Runs a validation agaisnt the Core Router to see if the network for the default gatway is there
-- name: VALIDATE Routing
-  hosts: ios
-  connection: network_cli
-  gather_facts: no
-
-# prompting for username password for this Play these are the IOS credentials
-# these could be in the ./group_vars/ios.yml using ansible vault
-  vars_prompt:
-    - name: "ios_username_var"
-      prompt: "UserID"
-      private: no
-    - name: "ios_password_var"
-      prompt: "Password"
-      private: yes
-# prompting for VRF name as it could be different on the IOS than on the ACI side      
-    - name: "vrf_name"
-      prompt: "What is the VRF?"
-      private: no
-#Expecting just the name of the var file with the extention (.yml in this case)
-    - name: "var_file_var"
-      prompt: "What is the name of your Variable File?"
-      private: no      
-  tasks:
-    - name: OBTAIN CONFIG VARIABLES
-      include_vars: 
-        file: ./tenant_vars/{{ var_file_var }}
-        
-    # hostvar ['apic'] is hard coded item
-    - name: TASK 1 - Validate Route Exists
-      ios_command:
-        commands: show ip route vrf {{ vrf_name }} {{ item.gateway_ip_address }}
-      register: validate_rtr
-      when: ansible_network_os == 'ios'
-      with_items: "{{ bridgeDomainEpg }}"
-      
-    - debug: msg="{{validate_rtr.stdout_lines}}"   
