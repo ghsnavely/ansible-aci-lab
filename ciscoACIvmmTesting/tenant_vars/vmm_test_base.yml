@@ -1,18 +1,29 @@
 ---
-
+backup_var: vmm_testing
 ### TENANT INFORMATION
 ### Descriptions must be between " " to work correctly
-tenant_var: vmm_testing01
-tenant_description: "Test vmm_testing01"
-
+tenants:
+  - tenant_var: vmm_testing01
+    tenant_description: "Created by GHS: Testing VMM integration"
+  - tenant_var: vmm_testing02
+    tenant_description: "Created by GHS: Testing VMM integration" 
+  - tenant_var: vmm_testing03
+    tenant_description: "Created by GHS: Testing VMM integration"
+  - tenant_var: vmm_testing04
+    tenant_description: "Created by GHS: Testing VMM integration" 
 ### Backup Name
-backup_name_var: "Prevmm_testing01"
+backup_name_var: "Prevmm_testing"
 
 ### VRF INFORMATION create single VRF
 ### Descriptions must be between " " to work correctly
 
 ### this exmaple uses a Shared VRF in Common tenant
 vrf_var: CommonTestVRF
+
+### L3Out Information
+### shared l3-out in this example
+
+l3out_name_var: CommonTestL3out
 
 ### APPLICATION PROFILE INFORMATION
 ### Descriptions must be between " " to work correctly
@@ -28,9 +39,18 @@ vrf_var: CommonTestVRF
 
 appProfiles:
   - app_profile_var: App01
-    app_profile_description: "applications_01"
-  - app_profile_var: App02
-    app_profile_description: "applications_02"    
+    app_profile_description: "Tenant vmm_testing01 applications_01"
+    tenant_var: vmm_testing01
+  - app_profile_var: App01
+    app_profile_description: "Tenant vmm_testing02 applications_01"
+    tenant_var: vmm_testing02
+  - app_profile_var: App01
+    app_profile_description: "Tenant vmm_testing03 applications_01"
+    tenant_var: vmm_testing03
+  - app_profile_var: App01
+    app_profile_description: "Tenant vmm_testing04 applications_01"
+    tenant_var: vmm_testing04
+
 # this VAR needed to make post validation easier
 
 ### BRIDGE DOMAIN INFORMATION
@@ -56,8 +76,9 @@ appProfiles:
 # variables to account for this, or some other looping task than is done here
 bridgeDomainEpg:
   - bd_epg_var: Epg01
+    tenant_var: vmm_testing01
     bd_app_profile_var: App01
-    bd_description: "testing loops"
+    bd_description: "vmm_test"
     gateway_ip_var: 10.241.160.6
     subnet_mask_var: 29
     net_scope_var: public
@@ -65,8 +86,9 @@ bridgeDomainEpg:
     domain_type_var: vmm
     vm_provider_var: vmware  
   - bd_epg_var: Epg02
+    tenant_var: vmm_testing01  
     bd_app_profile_var: App01
-    bd_description: "testing loops"
+    bd_description: "vmm_test"
     gateway_ip_var: 10.241.160.14
     subnet_mask_var: 29
     net_scope_var: public
@@ -74,8 +96,9 @@ bridgeDomainEpg:
     domain_type_var: vmm
     vm_provider_var: vmware       
   - bd_epg_var: Epg03
+    tenant_var: vmm_testing01  
     bd_app_profile_var: App01
-    bd_description: "testing loops"
+    bd_description: "vmm_test"
     gateway_ip_var: 10.241.160.22
     subnet_mask_var: 29
     net_scope_var: public
@@ -83,8 +106,9 @@ bridgeDomainEpg:
     domain_type_var: vmm
     vm_provider_var: vmware      
   - bd_epg_var: Epg04
-    bd_app_profile_var: App02
-    bd_description: "testing loops"
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
     gateway_ip_var: 10.241.160.30
     subnet_mask_var: 29
     net_scope_var: public
@@ -92,17 +116,19 @@ bridgeDomainEpg:
     domain_type_var: vmm
     vm_provider_var: vmware        
   - bd_epg_var: Epg05
-    bd_app_profile_var: App02
-    bd_description: "testing loops"
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
     gateway_ip_var: 10.241.160.38
     subnet_mask_var: 29
     net_scope_var: public
     domain_var: aci-vc6501
     domain_type_var: vmm
-    vm_provider_var: vmware
+    vm_provider_var: vmware   
   - bd_epg_var: Epg06
-    bd_app_profile_var: App02
-    bd_description: "testing loops"
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
     gateway_ip_var: 10.241.160.46
     subnet_mask_var: 29
     net_scope_var: public
@@ -110,8 +136,9 @@ bridgeDomainEpg:
     domain_type_var: vmm
     vm_provider_var: vmware
   - bd_epg_var: Epg07
-    bd_app_profile_var: App02
-    bd_description: "testing loops"
+    tenant_var: vmm_testing02 
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
     gateway_ip_var: 10.241.160.54
     subnet_mask_var: 29
     net_scope_var: public
@@ -119,8 +146,9 @@ bridgeDomainEpg:
     domain_type_var: vmm
     vm_provider_var: vmware
   - bd_epg_var: Epg08
-    bd_app_profile_var: App02
-    bd_description: "testing loops"
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
     gateway_ip_var: 10.241.160.62
     subnet_mask_var: 29
     net_scope_var: public
@@ -128,8 +156,9 @@ bridgeDomainEpg:
     domain_type_var: vmm
     vm_provider_var: vmware
   - bd_epg_var: Epg09
-    bd_app_profile_var: App02
-    bd_description: "testing loops"
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
     gateway_ip_var: 10.241.160.70
     subnet_mask_var: 29
     net_scope_var: public
@@ -137,18 +166,14 @@ bridgeDomainEpg:
     domain_type_var: vmm
     vm_provider_var: vmware
   - bd_epg_var: Epg10
-    bd_app_profile_var: App02
-    bd_description: "testing loops"
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
     gateway_ip_var: 10.241.160.78
     subnet_mask_var: 29
     net_scope_var: public
     domain_var: aci-vc6501
     domain_type_var: vmm
-    vm_provider_var: vmware                     
+    vm_provider_var: vmware                  
 
 
-### L3Out Information
-### shared l3-out in this example
-
-
-l3out_name_var: CommonTestL3out

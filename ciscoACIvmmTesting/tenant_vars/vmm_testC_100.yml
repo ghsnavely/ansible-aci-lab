@@ -1,0 +1,580 @@
+---
+backup_var: vmm_testing
+### TENANT INFORMATION
+### Descriptions must be between " " to work correctly
+tenants:
+  - tenant_var: vmm_testing01
+    tenant_description: "Created by GHS: Testing VMM integration"
+  - tenant_var: vmm_testing02
+    tenant_description: "Created by GHS: Testing VMM integration" 
+  - tenant_var: vmm_testing03
+    tenant_description: "Created by GHS: Testing VMM integration"
+  - tenant_var: vmm_testing04
+    tenant_description: "Created by GHS: Testing VMM integration" 
+### Backup Name
+backup_name_var: "Prevmm_testing"
+
+### VRF INFORMATION create single VRF
+### Descriptions must be between " " to work correctly
+
+### this exmaple uses a Shared VRF in Common tenant
+vrf_var: CommonTestVRF
+
+### L3Out Information
+### shared l3-out in this example
+
+l3out_name_var: CommonTestL3out
+
+### APPLICATION PROFILE INFORMATION
+### Descriptions must be between " " to work correctly
+
+### to add more application profiles add a new item under the apps: like below
+#apps: 
+#  - app_profile_var: {{application_profile_name}}
+#    app_profile_description: "{{description}}"
+#  - app_profile_var: {{application_profile_2_name}}
+#    app_profile_description: "{{description_2}}"
+#
+#
+
+appProfiles:
+  - app_profile_var: App01
+    app_profile_description: "Tenant vmm_testing01 applications_01"
+    tenant_var: vmm_testing01
+  - app_profile_var: App01
+    app_profile_description: "Tenant vmm_testing02 applications_01"
+    tenant_var: vmm_testing02
+  - app_profile_var: App01
+    app_profile_description: "Tenant vmm_testing03 applications_01"
+    tenant_var: vmm_testing03
+  - app_profile_var: App01
+    app_profile_description: "Tenant vmm_testing04 applications_01"
+    tenant_var: vmm_testing04
+
+# this VAR needed to make post validation easier
+
+### BRIDGE DOMAIN INFORMATION
+### Subnet mask is the CIDR format without the / for example /24 would just be 24
+### using the same name for the BD/EPG in this setup
+### Descriptions must be between " " to work correctly
+### on net_scope_var use private if it is not routable out a L3out public if it needs to be routeable out an L3out
+
+### to add more bridge domains add a new item under the bd: like below
+#bd: 
+#  - bd_epg_var: {{name}}
+#    bd_app_profile_var: {{application name}}
+#    bd_description: "{{description}}"
+#    gateway_ip_var: {{default_gateway_ip}}
+#    subnet_mask_var: {{SubnetMask_CIDR}}
+#    net_scope_var: {{ private/public}}
+#    AAEP_var: {{aaep_to_use}}
+#    vlan_var: {{vlan_on_leaf_port}}
+#    domain_var: {{physical_domain_to_use}}
+#
+# 
+# this expects for a single Domain and AAEP to be used, if you had more you would need to create multiple
+# variables to account for this, or some other looping task than is done here
+bridgeDomainEpg:
+  - bd_epg_var: Epg01
+    tenant_var: vmm_testing01
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.6
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware  
+  - bd_epg_var: Epg02
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.14
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware       
+  - bd_epg_var: Epg03
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.22
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware      
+  - bd_epg_var: Epg04
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.30
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware        
+  - bd_epg_var: Epg05
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.38
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware   
+  - bd_epg_var: Epg06
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.46
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg07
+    tenant_var: vmm_testing01 
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.54
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg08
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.62
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg09
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.70
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg10
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.78
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware                  
+  - bd_epg_var: Epg11
+    tenant_var: vmm_testing01
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.86
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware  
+  - bd_epg_var: Epg12
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.94
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware       
+  - bd_epg_var: Epg13
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.102
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware      
+  - bd_epg_var: Epg14
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.110
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware        
+  - bd_epg_var: Epg15
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.118
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware   
+  - bd_epg_var: Epg16
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.126
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg17
+    tenant_var: vmm_testing01 
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.134
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg18
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.142
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg19
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.150
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg20
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.158
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg21
+    tenant_var: vmm_testing01
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.166
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware  
+  - bd_epg_var: Epg22
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.174
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware       
+  - bd_epg_var: Epg23
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.182
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware      
+  - bd_epg_var: Epg24
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.190
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware          
+  - bd_epg_var: Epg25
+    tenant_var: vmm_testing01  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.160.198
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware   
+# TENANT vmm_testing02    
+  - bd_epg_var: Epg01
+    tenant_var: vmm_testing02
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.6
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware  
+  - bd_epg_var: Epg02
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.14
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware       
+  - bd_epg_var: Epg03
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.22
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware      
+  - bd_epg_var: Epg04
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.30
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware        
+  - bd_epg_var: Epg05
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.38
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware   
+  - bd_epg_var: Epg06
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.46
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg07
+    tenant_var: vmm_testing02 
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.54
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg08
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.62
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg09
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.70
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg10
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.78
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware                  
+  - bd_epg_var: Epg11
+    tenant_var: vmm_testing02
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.86
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware  
+  - bd_epg_var: Epg12
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.94
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware       
+  - bd_epg_var: Epg13
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.102
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware      
+  - bd_epg_var: Epg14
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.110
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware        
+  - bd_epg_var: Epg15
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.118
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware   
+  - bd_epg_var: Epg16
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.126
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg17
+    tenant_var: vmm_testing02 
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.134
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg18
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.142
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg19
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.150
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg20
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.158
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg21
+    tenant_var: vmm_testing02
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.166
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware  
+  - bd_epg_var: Epg22
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.174
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware       
+  - bd_epg_var: Epg23
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.182
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware      
+  - bd_epg_var: Epg24
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.190
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware        
+  - bd_epg_var: Epg25
+    tenant_var: vmm_testing02  
+    bd_app_profile_var: App01
+    bd_description: "vmm_test"
+    gateway_ip_var: 10.241.162.198
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware   
+
+
