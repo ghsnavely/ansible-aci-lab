@@ -1,7 +1,13 @@
 ---
+
+
+### Backup Name
+backup_name_var: "Prevmm_testing"
 backup_var: vmm_testing
+
 ### TENANT INFORMATION
 ### Descriptions must be between " " to work correctly
+### data used to create 10 tenants and their VRF routed only inside the tenant
 tenants:
   - tenant_var: vmm_testing01
     tenant_description: "Created by GHS: Testing VMM integration"
@@ -43,29 +49,12 @@ tenants:
     tenant_description: "Created by GHS: Testing VMM integration"     
     vrf_var: vmm_testing
     vrf_description: "Testing10 VRF"    
-### Backup Name
-backup_name_var: "Prevmm_testing"
 
-### VRF INFORMATION create single VRF
-### Descriptions must be between " " to work correctly
-
-### this exmaple uses a Shared VRF in Common tenant
-vrf_var: CommonTestVRF
-
-### L3Out Information
-### shared l3-out in this example
-
-l3out_name_var: CommonTestL3out
 
 ### APPLICATION PROFILE INFORMATION
 ### Descriptions must be between " " to work correctly
-
-### to add more application profiles add a new item under the apps: like below
-#apps: 
-#  - app_profile_var: {{application_profile_name}}
-#    app_profile_description: "{{description}}"
-#  - app_profile_var: {{application_profile_2_name}}
-#    app_profile_description: "{{description_2}}"
+#
+### creates App01 for each tenant
 #
 #
 
@@ -100,7 +89,7 @@ appProfiles:
   - app_profile_var: App01
     app_profile_description: "Tenant vmm_testing10 applications_01"
     tenant_var: vmm_testing10  
-# this VAR needed to make post validation easier
+
 
 ### BRIDGE DOMAIN INFORMATION
 ### Subnet mask is the CIDR format without the / for example /24 would just be 24
@@ -123,7 +112,9 @@ appProfiles:
 # 
 # this expects for a single Domain and AAEP to be used, if you had more you would need to create multiple
 # variables to account for this, or some other looping task than is done here
+#
 bridgeDomainEpg:
+#Tenant vmm_testing01
   - bd_epg_var: Epg01
     tenant_var: vmm_testing01
     bd_app_profile_var: App01
@@ -1224,3 +1215,4 @@ bridgeDomainEpg:
     domain_var: aci-vc6501
     domain_type_var: vmm
     vm_provider_var: vmware
+# Tenant: vmm_testing02
