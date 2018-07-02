@@ -47,7 +47,7 @@
         state: query
         validate_certs: no
         use_ssl: yes        
-        export_policy: "{{ item.tenant_var }}"
+        export_policy: "{{ bakup_var }}"
       register: fabric_snapshot
 
     - name: PRE-BUILD TASK 2b - CREATE SNAPSHOT LIST
