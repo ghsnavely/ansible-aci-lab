@@ -120,20 +120,6 @@
         mask: "{{ item.subnet_mask_var }}"
         scope: "{{ item.net_scope_var }}"       
       with_items: "{{ bridgeDomainEpg }}"
-    
-    - name: TASK 2c - BUILD ADD L3Out to L2/L3 Bridge Domain        
-      aci_bd_to_l3out:
-        hostname: "{{ inventory_hostname }}"
-        username: "{{ aci_user_id }}"
-        private_key: "~/{{ aci_user_id }}.key"
-        state: present
-        validate_certs: no
-        use_ssl: yes
-        tenant: "{{ item.tenant_var }}"
-        bd: "{{ item.bd_epg_var }}"
-        l3out: "{{ l3out_name_var }}"
-      with_items: "{{ bridgeDomainEpg }}"
-
     #BUILD Application Profiles
     # These are using a Loop ( with_items ) to create more than one application profile
     - name: TASK 3 - BUILD New Application Profiles on {{ inventory_hostname }}
