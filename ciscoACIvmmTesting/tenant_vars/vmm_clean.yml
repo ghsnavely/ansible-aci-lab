@@ -1,0 +1,15 @@
+
+### TENANT Cleanup INFORMATION
+
+tenants:
+  - tenant_var: vmm_testing01
+  - tenant_var: vmm_testing02
+  - tenant_var: vmm_testing03
+  - tenant_var: vmm_testing04  
+  - tenant_var: vmm_testing05   
+  - tenant_var: vmm_testing06   
+  - tenant_var: vmm_testing07    
+  - tenant_var: vmm_testing08   
+  - tenant_var: vmm_testing09   
+  - tenant_var: vmm_testing10
+    

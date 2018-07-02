@@ -33,7 +33,6 @@
         username: "{{ aci_user_id }}"
         private_key: "~/{{ aci_user_id }}.key"
         tenant: "{{ item.tenant_var }}"
-        description: "{{ item.tenant_description }}"
         validate_certs: no
         use_ssl: yes
         state: absent
