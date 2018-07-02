@@ -2,8 +2,8 @@
 
 ### TENANT INFORMATION
 ### Descriptions must be between " " to work correctly
-tenant_var: vmm_testing01
-tenant_description: "Test vmm_testing01"
+tenant_var: vmm_testing02
+tenant_description: "Created by GHS: Testing VMM integration "
 
 ### Backup Name
 backup_name_var: "Prevmm_testing01"
