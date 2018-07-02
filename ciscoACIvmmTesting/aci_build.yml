@@ -25,7 +25,7 @@
       include_vars: 
         file: ./tenant_vars/{{ var_file_var }}
 
-# Make Snapshot for current configuration - List Current Snapshots in "{{ tenant_var }}"
+# Make Snapshot for current configuration - List Current Snapshots in "{{ backup_var }}"
 
     - name: PRE-BUILD TASK 1 - SNAPSHOT
       aci_config_snapshot:
@@ -35,7 +35,7 @@
         state: present
         validate_certs: no
         use_ssl: yes
-        export_policy: "{{ tenant_var }}"
+        export_policy: "{{ backup_var }}"
         max_count: 10
         description: Backups taken before new ansible configs are applied.
 
@@ -47,7 +47,7 @@
         state: query
         validate_certs: no
         use_ssl: yes        
-        export_policy: "{{ tenant_var }}"
+        export_policy: "{{ item.tenant_var }}"
       register: fabric_snapshot
 
     - name: PRE-BUILD TASK 2b - CREATE SNAPSHOT LIST
@@ -68,10 +68,11 @@
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
         private_key: "~/{{ aci_user_id }}.key"
-        tenant: "{{ tenant_var }}"
+        tenant: "{{ item.tenant_var }}"
         validate_certs: no
         use_ssl: yes
         state: present
+      with_items: "{{ tenants }}"         
     #VRF Hard coded here because PoC
    # Tasks in Group 3 Build Bridge Domain, add default gateway add then add Task 2 created L3out
    # These are using a Loop ( with_items ) to create more than one bridge domain
@@ -85,7 +86,7 @@
         state: present
         validate_certs: no
         use_ssl: yes        
-        tenant: "{{ tenant_var }}"
+        tenant: "{{ item.tenant_var }}"
         bd: "{{ item.bd_epg_var }}"
         description: "{{ item.bd_description }}"
         vrf: "{{ vrf_var }}"          
@@ -99,7 +100,7 @@
         state: present        
         validate_certs: no
         use_ssl: yes 
-        tenant: "{{ tenant_var }}"
+        tenant: "{{ item.tenant_var }}"
         bd: "{{ item.bd_epg_var }}"
         gateway: "{{ item.gateway_ip_var }}"
         mask: "{{ item.subnet_mask_var }}"
@@ -114,7 +115,7 @@
         state: present
         validate_certs: no
         use_ssl: yes
-        tenant: "{{ tenant_var }}"
+        tenant: "{{ item.tenant_var }}"
         bd: "{{ item.bd_epg_var }}"
         l3out: "{{ l3out_name_var }}"
       with_items: "{{ bridgeDomainEpg }}"
@@ -129,7 +130,7 @@
         state: present        
         validate_certs: no
         use_ssl: yes
-        tenant: "{{ tenant_var }}"
+        tenant: "{{ item.tenant_var }}"
         ap: "{{ item.app_profile_var }}"
         description: "{{ item.app_profile_description }}"
       with_items: "{{ appProfiles }}"
@@ -144,7 +145,7 @@
         state: present        
         validate_certs: no
         use_ssl: yes
-        tenant: "{{ tenant_var }}"
+        tenant: "{{ item.tenant_var }}"
         ap: "{{ item.bd_app_profile_var }}"
         bd: "{{ item.bd_epg_var }}"
         epg: "{{ item.bd_epg_var}}"
@@ -157,7 +158,7 @@
         state: present        
         validate_certs: no
         use_ssl: yes
-        tenant: "{{ tenant_var }}"
+        tenant: "{{ item.tenant_var }}"
         ap: "{{ item.bd_app_profile_var }}"        
         epg: "{{ item.bd_epg_var }}"
         domain: "{{ item.domain_var }}"
@@ -166,15 +167,16 @@
       with_items: "{{ bridgeDomainEpg }}"
 
 # Pulls the json for Tenant 
-    - name: POST TASK 1 - GET ACI Application Profiles for {{ tenant_var }} from {{ inventory_hostname }}
+    - name: POST TASK 1 - GET ACI Application Profiles for {{ item.tenant_var }} from {{ inventory_hostname }}
       aci_ap:
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
         private_key: "~/{{ aci_user_id }}.key"
-        tenant: "{{ tenant_var }}"
+        tenant: "{{ item.tenant_var }}"
         validate_certs: no
         use_ssl: yes
         state: query
+      with_items: "{{ tenants }}"
       register: tenant_aps
 
 # Creates a Filtered list for Json
