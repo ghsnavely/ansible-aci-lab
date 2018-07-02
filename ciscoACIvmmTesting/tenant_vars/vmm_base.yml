@@ -1,0 +1,154 @@
+---
+
+### TENANT INFORMATION
+### Descriptions must be between " " to work correctly
+tenant_var: vmm_testing01
+tenant_description: "Test vmm_testing01"
+
+### Backup Name
+backup_name_var: "Prevmm_testing01"
+
+### VRF INFORMATION create single VRF
+### Descriptions must be between " " to work correctly
+
+### this exmaple uses a Shared VRF in Common tenant
+vrf_var: CommonTestVRF
+
+### APPLICATION PROFILE INFORMATION
+### Descriptions must be between " " to work correctly
+
+### to add more application profiles add a new item under the apps: like below
+#apps: 
+#  - app_profile_var: {{application_profile_name}}
+#    app_profile_description: "{{description}}"
+#  - app_profile_var: {{application_profile_2_name}}
+#    app_profile_description: "{{description_2}}"
+#
+#
+
+appProfiles:
+  - app_profile_var: App01
+    app_profile_description: "applications_01"
+  - app_profile_var: App02
+    app_profile_description: "applications_02"    
+# this VAR needed to make post validation easier
+
+### BRIDGE DOMAIN INFORMATION
+### Subnet mask is the CIDR format without the / for example /24 would just be 24
+### using the same name for the BD/EPG in this setup
+### Descriptions must be between " " to work correctly
+### on net_scope_var use private if it is not routable out a L3out public if it needs to be routeable out an L3out
+
+### to add more bridge domains add a new item under the bd: like below
+#bd: 
+#  - bd_epg_var: {{name}}
+#    bd_app_profile_var: {{application name}}
+#    bd_description: "{{description}}"
+#    gateway_ip_var: {{default_gateway_ip}}
+#    subnet_mask_var: {{SubnetMask_CIDR}}
+#    net_scope_var: {{ private/public}}
+#    AAEP_var: {{aaep_to_use}}
+#    vlan_var: {{vlan_on_leaf_port}}
+#    domain_var: {{physical_domain_to_use}}
+#
+# 
+# this expects for a single Domain and AAEP to be used, if you had more you would need to create multiple
+# variables to account for this, or some other looping task than is done here
+bridgeDomainEpg:
+  - bd_epg_var: Epg01
+    bd_app_profile_var: App01
+    bd_description: "testing loops"
+    gateway_ip_var: 10.241.160.6
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware  
+  - bd_epg_var: Epg02
+    bd_app_profile_var: App01
+    bd_description: "testing loops"
+    gateway_ip_var: 10.241.160.14
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware       
+  - bd_epg_var: Epg03
+    bd_app_profile_var: App01
+    bd_description: "testing loops"
+    gateway_ip_var: 10.241.160.22
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware      
+  - bd_epg_var: Epg04
+    bd_app_profile_var: App02
+    bd_description: "testing loops"
+    gateway_ip_var: 10.241.160.30
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware        
+  - bd_epg_var: Epg05
+    bd_app_profile_var: App02
+    bd_description: "testing loops"
+    gateway_ip_var: 10.241.160.38
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg06
+    bd_app_profile_var: App02
+    bd_description: "testing loops"
+    gateway_ip_var: 10.241.160.46
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg07
+    bd_app_profile_var: App02
+    bd_description: "testing loops"
+    gateway_ip_var: 10.241.160.54
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg08
+    bd_app_profile_var: App02
+    bd_description: "testing loops"
+    gateway_ip_var: 10.241.160.62
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg09
+    bd_app_profile_var: App02
+    bd_description: "testing loops"
+    gateway_ip_var: 10.241.160.70
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware
+  - bd_epg_var: Epg10
+    bd_app_profile_var: App02
+    bd_description: "testing loops"
+    gateway_ip_var: 10.241.160.78
+    subnet_mask_var: 29
+    net_scope_var: public
+    domain_var: aci-vc6501
+    domain_type_var: vmm
+    vm_provider_var: vmware                     
+
+
+### L3Out Information
+### shared l3-out in this example
+
+
+l3out_name_var: CommonTestL3out
