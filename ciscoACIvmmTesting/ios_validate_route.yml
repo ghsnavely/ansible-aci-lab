@@ -1,0 +1,30 @@
+# Runs a validation agaisnt the Core Router to see if the network for the default gatway is there
+- name: VALIDATE Routing
+  hosts: ios
+  connection: network_cli
+  gather_facts: no
+
+# prompting for username password for this Play
+  vars_prompt:
+    - name: "ios_username_var"
+      prompt: "UserID"
+      private: no
+    - name: "ios_password_var"
+      prompt: "Password"
+      private: yes
+    - name: "vrf_name"
+      prompt: "What is the VRF?"
+      private: no
+    - name: "gateway_ip_var"
+      prompt: "What is the Bridge Domain gateway IP address?"
+      private: no     
+  tasks:
+
+
+    - name: TASK 1 - Validate Route Exists
+      ios_command:
+        commands: show ip route vrf {{ vrf_name }} {{ gateway_ip_var }}
+      register: validate_rtr
+      when: ansible_network_os == 'ios'
+
+    - debug: msg="{{validate_rtr.stdout_lines}}"   

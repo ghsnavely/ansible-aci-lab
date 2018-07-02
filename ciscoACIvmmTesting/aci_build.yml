@@ -1,0 +1,188 @@
+---
+#Two Plays in Playbook
+
+#Play 1 Get Variables - Create Backup - Deploy Configuration to ACI - Validate Configuration is present
+
+- name: ACI BUILD JOB
+  hosts: apic_group
+  connection: local
+  gather_facts: no
+
+# prompting for username password for this Play
+  vars_prompt:
+    - name: "aci_user_id"
+      prompt: "UserID"
+      private: no
+#Expecting just the name of the var file with the extention (.yml in this case)
+    - name: "var_file_var"
+      prompt: "What is the name of your Variable File?"
+      private: no
+
+# PULLING IN VARIABLES FOR CONFIGURATION
+# Can change the directory as needed 
+  tasks:
+    - name: OBTAIN CONFIG VARIABLES
+      include_vars: 
+        file: ./tenant_vars/{{ var_file_var }}
+
+# Make Snapshot for current configuration - List Current Snapshots in "{{ tenant_var }}"
+
+    - name: PRE-BUILD TASK 1 - SNAPSHOT
+      aci_config_snapshot:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        state: present
+        validate_certs: no
+        use_ssl: yes
+        export_policy: "{{ tenant_var }}"
+        max_count: 10
+        description: Backups taken before new ansible configs are applied.
+
+    - name: PRE-BUILD TASK 2 - VALIDATE SNAPSHOT
+      aci_config_snapshot:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        state: query
+        validate_certs: no
+        use_ssl: yes        
+        export_policy: "{{ tenant_var }}"
+      register: fabric_snapshot
+
+    - name: PRE-BUILD TASK 2b - CREATE SNAPSHOT LIST
+      set_fact:
+        snapshot_list: "{{ fabric_snapshot| json_query('current[].configSnapshotCont. {Name: attributes.name, Backup_Name: children[].configSnapshot.attributes.name ,Backup_File: children[].configSnapshot.attributes.fileName}') }}"
+    - name: PRE-BUILD TASK 2c - PRINT SNAPSHOT LIST
+      debug: var=snapshot_list
+
+
+# Build includes variables and hard coded items specific to jhalabs
+# Static items are
+### L3-OUT - SHARED-L3OUT
+### IP scope - public
+### VRF - COMMON-SHARED-VRF
+# Deploys to ACI fabric
+    - name: TASK 1 - BUILD New Tenant
+      aci_tenant:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        tenant: "{{ tenant_var }}"
+        validate_certs: no
+        use_ssl: yes
+        state: present
+    #VRF Hard coded here because PoC
+   # Tasks in Group 3 Build Bridge Domain, add default gateway add then add Task 2 created L3out
+   # These are using a Loop ( with_items ) to create more than one bridge domain
+   # The same name is used for the BD and EPG
+
+    - name: TASK 2a - BUILD L2/L3 Bridge Domain on {{ inventory_hostname }}
+      aci_bd:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        state: present
+        validate_certs: no
+        use_ssl: yes        
+        tenant: "{{ tenant_var }}"
+        bd: "{{ item.bd_epg_var }}"
+        description: "{{ item.bd_description }}"
+        vrf: "{{ vrf_var }}"          
+      with_items: "{{ bridgeDomainEpg }}"  
+
+    - name: TASK 2b - BUILD ADD IP Gateway to L2/L3 Bridge Domain on {{ inventory_hostname }}
+      aci_bd_subnet:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        state: present        
+        validate_certs: no
+        use_ssl: yes 
+        tenant: "{{ tenant_var }}"
+        bd: "{{ item.bd_epg_var }}"
+        gateway: "{{ item.gateway_ip_var }}"
+        mask: "{{ item.subnet_mask_var }}"
+        scope: "{{ item.net_scope_var }}"       
+      with_items: "{{ bridgeDomainEpg }}"
+    
+    - name: TASK 2c - BUILD ADD L3Out to L2/L3 Bridge Domain        
+      aci_bd_to_l3out:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        state: present
+        validate_certs: no
+        use_ssl: yes
+        tenant: "{{ tenant_var }}"
+        bd: "{{ item.bd_epg_var }}"
+        l3out: "{{ l3out_name_var }}"
+      with_items: "{{ bridgeDomainEpg }}"
+
+    #BUILD Application Profiles
+    # These are using a Loop ( with_items ) to create more than one application profile
+    - name: TASK 3 - BUILD New Application Profiles on {{ inventory_hostname }}
+      aci_ap:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        state: present        
+        validate_certs: no
+        use_ssl: yes
+        tenant: "{{ tenant_var }}"
+        ap: "{{ item.app_profile_var }}"
+        description: "{{ item.app_profile_description }}"
+      with_items: "{{ appProfiles }}"
+
+#Task 5s BUILD End Point Groups, then add physical domain and then add EPG setup to the AAEP vs static bindings
+# These are using a Loop ( with_items ) to create more than end point group
+    - name: TASK 5a - BUILD New EPG on {{ inventory_hostname }}
+      aci_epg:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        state: present        
+        validate_certs: no
+        use_ssl: yes
+        tenant: "{{ tenant_var }}"
+        ap: "{{ item.bd_app_profile_var }}"
+        bd: "{{ item.bd_epg_var }}"
+        epg: "{{ item.bd_epg_var}}"
+      with_items: "{{ bridgeDomainEpg }}"
+    - name: TASK 5b - ADD VMM Domain to NEW EPGs on {{ inventory_hostname }}    
+      aci_epg_to_domain:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        state: present        
+        validate_certs: no
+        use_ssl: yes
+        tenant: "{{ tenant_var }}"
+        ap: "{{ item.bd_app_profile_var }}"        
+        epg: "{{ item.bd_epg_var }}"
+        domain: "{{ item.domain_var }}"
+        domain_type: "{{ item.domain_type_var }}"
+        vm_provider: "{{ item.vm_provider_var }}"
+      with_items: "{{ bridgeDomainEpg }}"
+
+# Pulls the json for Tenant 
+    - name: POST TASK 1 - GET ACI Application Profiles for {{ tenant_var }} from {{ inventory_hostname }}
+      aci_ap:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        tenant: "{{ tenant_var }}"
+        validate_certs: no
+        use_ssl: yes
+        state: query
+      register: tenant_aps
+
+# Creates a Filtered list for Json
+    - name: POST TASK 2 - Build Application Profile List
+      set_fact:
+        ap_list: "{{ tenant_aps | json_query('current[].fvTenant. {Tenant: attributes.name Application_Profile: children[].fvAp.attributes.name EPG: children[].fvAp.children[].fvAEPg.attributes.name Domain: children[].fvAp.children[].fvAEPg.children[].fvRsDomAtt.attributes.tDn }
+') }}"
+
+# Print to Screen Filtered list
+    - name: POST TASK 2 - PRINT Application Profile List
+      debug: var=ap_list
