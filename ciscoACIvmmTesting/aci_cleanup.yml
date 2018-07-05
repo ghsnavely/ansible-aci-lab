@@ -13,17 +13,14 @@
     - name: "aci_user_id"
       prompt: "UserID"
       private: no
-#Expecting just the name of the var file with the extention (.yml in this case)
-    - name: "var_file_var"
-      prompt: "What is the name of your Variable File?"
-      private: no
+
 
 # PULLING IN VARIABLES FOR CONFIGURATION
 # Can change the directory as needed 
   tasks:
     - name: OBTAIN CONFIG VARIABLES
       include_vars: 
-        file: ./tenant_vars/{{ var_file_var }}
+        file: ./tenant_vars/vmm_clean.yml
 
 
 # this task removes the tenants to reset the test
