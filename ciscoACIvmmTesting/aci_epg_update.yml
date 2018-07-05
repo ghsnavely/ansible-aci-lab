@@ -38,5 +38,5 @@
         ap: "{{ item.bd_app_profile_var }}"
         bd: "{{ item.bd_epg_var }}"
         epg: "{{ item.bd_epg_var}}"
-        description: "{{ item.description }}"
+        description: "{{ item.bd_description }}"
       with_items: "{{ bridgeDomainEpg }}"   
