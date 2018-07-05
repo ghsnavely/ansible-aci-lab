@@ -1,0 +1,42 @@
+---
+#Two Plays in Playbook
+
+#Play 1 Get Variables - Create Backup - Deploy Configuration to ACI - Validate Configuration is present
+
+- name: ACI BUILD JOB
+  hosts: apic_group
+  connection: local
+  gather_facts: no
+
+# prompting for username password for this Play
+  vars_prompt:
+    - name: "aci_user_id"
+      prompt: "UserID"
+      private: no
+#Expecting just the name of the var file with the extention (.yml in this case)
+    - name: "var_file_var"
+      prompt: "What is the name of your Variable File?"
+      private: no
+
+# PULLING IN VARIABLES FOR CONFIGURATION
+# Can change the directory as needed 
+  tasks:
+    - name: OBTAIN CONFIG VARIABLES
+      include_vars: 
+        file: ./tenant_vars/{{ var_file_var }}
+
+#Task 1s update EPG
+    - name: TASK 1 - EPG Description Update {{ inventory_hostname }}
+      aci_epg:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ aci_user_id }}"
+        private_key: "~/{{ aci_user_id }}.key"
+        state: present        
+        validate_certs: no
+        use_ssl: yes
+        tenant: "{{ item.tenant_var }}"
+        ap: "{{ item.bd_app_profile_var }}"
+        bd: "{{ item.bd_epg_var }}"
+        epg: "{{ item.bd_epg_var}}"
+        description: "{{ item.description }}"
+      with_items: "{{ bridgeDomainEpg }}"   
