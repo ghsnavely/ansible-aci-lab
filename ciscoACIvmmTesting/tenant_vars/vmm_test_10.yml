@@ -70,7 +70,7 @@ bridgeDomainEpg:
   - bd_epg_var: Epg01
     tenant_var: vmm_testing01
     bd_app_profile_var: App01
-    bd_description: "vmm_test"
+    bd_description: "Update_of_Description_test"
     gateway_ip_var: 10.241.160.6
     subnet_mask_var: 29
     net_scope_var: public
@@ -80,7 +80,7 @@ bridgeDomainEpg:
   - bd_epg_var: Epg02
     tenant_var: vmm_testing01  
     bd_app_profile_var: App01
-    bd_description: "vmm_test"
+    bd_description: "Update_of_Description_test"
     gateway_ip_var: 10.241.160.14
     subnet_mask_var: 29
     net_scope_var: public
@@ -90,7 +90,7 @@ bridgeDomainEpg:
   - bd_epg_var: Epg03
     tenant_var: vmm_testing01  
     bd_app_profile_var: App01
-    bd_description: "vmm_test"
+    bd_description: "Update_of_Description_test"
     gateway_ip_var: 10.241.160.22
     subnet_mask_var: 29
     net_scope_var: public
@@ -100,7 +100,7 @@ bridgeDomainEpg:
   - bd_epg_var: Epg04
     tenant_var: vmm_testing01  
     bd_app_profile_var: App01
-    bd_description: "vmm_test"
+    bd_description: "Update_of_Description_test"
     gateway_ip_var: 10.241.160.30
     subnet_mask_var: 29
     net_scope_var: public
@@ -110,7 +110,7 @@ bridgeDomainEpg:
   - bd_epg_var: Epg05
     tenant_var: vmm_testing01  
     bd_app_profile_var: App01
-    bd_description: "vmm_test"
+    bd_description: "Update_of_Description_test"
     gateway_ip_var: 10.241.160.38
     subnet_mask_var: 29
     net_scope_var: public
@@ -120,7 +120,7 @@ bridgeDomainEpg:
   - bd_epg_var: Epg06
     tenant_var: vmm_testing02  
     bd_app_profile_var: App01
-    bd_description: "vmm_test"
+    bd_description: "Update_of_Description_test"
     gateway_ip_var: 10.241.160.46
     subnet_mask_var: 29
     net_scope_var: public
@@ -130,7 +130,7 @@ bridgeDomainEpg:
   - bd_epg_var: Epg07
     tenant_var: vmm_testing02 
     bd_app_profile_var: App01
-    bd_description: "vmm_test"
+    bd_description: "Update_of_Description_test"
     gateway_ip_var: 10.241.160.54
     subnet_mask_var: 29
     net_scope_var: public
@@ -140,7 +140,7 @@ bridgeDomainEpg:
   - bd_epg_var: Epg08
     tenant_var: vmm_testing02  
     bd_app_profile_var: App01
-    bd_description: "vmm_test"
+    bd_description: "Update_of_Description_test"
     gateway_ip_var: 10.241.160.62
     subnet_mask_var: 29
     net_scope_var: public
@@ -150,7 +150,7 @@ bridgeDomainEpg:
   - bd_epg_var: Epg09
     tenant_var: vmm_testing02  
     bd_app_profile_var: App01
-    bd_description: "vmm_test"
+    bd_description: "Update_of_Description_test"
     gateway_ip_var: 10.241.160.70
     subnet_mask_var: 29
     net_scope_var: public
@@ -160,7 +160,7 @@ bridgeDomainEpg:
   - bd_epg_var: Epg10
     tenant_var: vmm_testing02  
     bd_app_profile_var: App01
-    bd_description: "vmm_test"
+    bd_description: "Update_of_Description_test"
     gateway_ip_var: 10.241.160.78
     subnet_mask_var: 29
     net_scope_var: public
