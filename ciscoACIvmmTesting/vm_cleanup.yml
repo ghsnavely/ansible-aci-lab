@@ -1,0 +1,36 @@
+---
+# cleanup vmware
+
+- name: VMware Test Guest Cleanup
+  hosts: vc
+  connection: local
+  gather_facts: no
+
+
+  vars_prompt:
+    - name: vcenter_username
+      prompt: UserID
+      private: no
+    - name: vcenter_password
+      prompt: Password
+      private: yes
+#Expecting just the name of the var file with the extention (.yml in this case)
+    - name: "var_file_var"
+      prompt: "What is the name of your VM Variable File?"
+      private: no
+
+  tasks:
+    - name: OBTAIN CONFIG VARIABLES
+      include_vars: 
+        file: ./vm_vars/{{ var_file_var }}
+          
+    - name: Shutdown Virtual Machines Created
+      vmware_guest:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: false
+        folder: "{{ item.folder_location }}"
+        name: "{{ item.vm_name }}"
+        state: poweredoff
+      with_items: "{{ vmmVmwareGuests }}"
