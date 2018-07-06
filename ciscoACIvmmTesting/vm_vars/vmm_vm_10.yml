@@ -1,18 +1,19 @@
 ---
 
 vmmVmwareGuests:
+#Tenant1
   - vm_name: vmm_guest01
     folder_location: "/LABS/VmmTest"
     os_template: UBU1604
     datacenter: Springfield
     cluster: smoetslfvc02
     disk_size_gb: 16
-    datastore: smoetslfvc02-LUN02-LABIB01
+    datastore: smoetslfvc02_dsc01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1
     network_port_group: "vmm_testing01|App01|Epg01"
-    ip_address: 10.241.160.2
+    ip_address: 10.241.160.5
     netmask: 255.255.255.248
     gateway: 10.241.160.6
     domain: jhalabs.com
@@ -24,14 +25,151 @@ vmmVmwareGuests:
     datacenter: Springfield
     cluster: smoetslfvc02
     disk_size_gb: 16
-    datastore: smoetslfvc02-LUN02-LABIB01
+    datastore: smoetslfvc02_dsc01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1
-    network_port_group: "vmm_testing01|App01|Epg01"
-    ip_address: 10.241.160.3
+    network_port_group: "vmm_testing01|App01|Epg02"
+    ip_address: 10.241.160.13
     netmask: 255.255.255.248
-    gateway: 10.241.160.6
+    gateway: 10.241.160.14
     domain: jhalabs.com
     dns_server_1: 10.241.183.11
-    dns_server_2: 10.241.183.12    
+    dns_server_2: 10.241.183.12
+  - vm_name: vmm_guest03
+    folder_location: "/LABS/VmmTest"
+    os_template: UBU1604
+    datacenter: Springfield
+    cluster: smoetslfvc02
+    disk_size_gb: 16
+    datastore: smoetslfvc02_dsc01
+    memory_size_mb: 512
+    number_cpu: 1
+    number_cpu_cores: 1
+    network_port_group: "vmm_testing01|App01|Epg03"
+    ip_address: 10.241.160.21
+    netmask: 255.255.255.248
+    gateway: 10.241.160.22
+    domain: jhalabs.com
+    dns_server_1: 10.241.183.11
+    dns_server_2: 10.241.183.12
+  - vm_name: vmm_guest04
+    folder_location: "/LABS/VmmTest"
+    os_template: UBU1604
+    datacenter: Springfield
+    cluster: smoetslfvc02
+    disk_size_gb: 16
+    datastore: smoetslfvc02_dsc01
+    memory_size_mb: 512
+    number_cpu: 1
+    number_cpu_cores: 1
+    network_port_group: "vmm_testing01|App01|Epg04"
+    ip_address: 10.241.160.29
+    netmask: 255.255.255.248
+    gateway: 10.241.160.30
+    domain: jhalabs.com
+    dns_server_1: 10.241.183.11
+    dns_server_2: 10.241.183.12
+  - vm_name: vmm_guest05
+    folder_location: "/LABS/VmmTest"
+    os_template: UBU1604
+    datacenter: Springfield
+    cluster: smoetslfvc02
+    disk_size_gb: 16
+    datastore: smoetslfvc02_dsc01
+    memory_size_mb: 512
+    number_cpu: 1
+    number_cpu_cores: 1
+    network_port_group: "vmm_testing01|App01|Epg05"
+    ip_address: 10.241.160.37
+    netmask: 255.255.255.248
+    gateway: 10.241.160.38
+    domain: jhalabs.com
+    dns_server_1: 10.241.183.11
+    dns_server_2: 10.241.183.12                     
+# Tenant2
+  - vm_name: vmm_guest06
+    folder_location: "/LABS/VmmTest"
+    os_template: UBU1604
+    datacenter: Springfield
+    cluster: smoetslfvc02
+    disk_size_gb: 16
+    datastore: smoetslfvc02_dsc01
+    memory_size_mb: 512
+    number_cpu: 1
+    number_cpu_cores: 1
+    network_port_group: "vmm_testing02|App01|Epg06"
+    ip_address: 10.241.160.45
+    netmask: 255.255.255.248
+    gateway: 10.241.160.46
+    domain: jhalabs.com
+    dns_server_1: 10.241.183.11
+    dns_server_2: 10.241.183.12
+  - vm_name: vmm_guest07
+    folder_location: "/LABS/VmmTest"
+    os_template: UBU1604
+    datacenter: Springfield
+    cluster: smoetslfvc02
+    disk_size_gb: 16
+    datastore: smoetslfvc02_dsc01
+    memory_size_mb: 512
+    number_cpu: 1
+    number_cpu_cores: 1
+    network_port_group: "vmm_testing02|App01|Epg07"
+    ip_address: 10.241.160.53
+    netmask: 255.255.255.248
+    gateway: 10.241.160.54
+    domain: jhalabs.com
+    dns_server_1: 10.241.183.11
+    dns_server_2: 10.241.183.12
+  - vm_name: vmm_guest08
+    folder_location: "/LABS/VmmTest"
+    os_template: UBU1604
+    datacenter: Springfield
+    cluster: smoetslfvc02
+    disk_size_gb: 16
+    datastore: smoetslfvc02_dsc01
+    memory_size_mb: 512
+    number_cpu: 1
+    number_cpu_cores: 1
+    network_port_group: "vmm_testing02|App01|Epg08"
+    ip_address: 10.241.160.61
+    netmask: 255.255.255.248
+    gateway: 10.241.160.62
+    domain: jhalabs.com
+    dns_server_1: 10.241.183.11
+    dns_server_2: 10.241.183.12
+  - vm_name: vmm_guest09
+    folder_location: "/LABS/VmmTest"
+    os_template: UBU1604
+    datacenter: Springfield
+    cluster: smoetslfvc02
+    disk_size_gb: 16
+    datastore: smoetslfvc02_dsc01
+    memory_size_mb: 512
+    number_cpu: 1
+    number_cpu_cores: 1
+    network_port_group: "vmm_testing02|App01|Epg09"
+    ip_address: 10.241.160.69
+    netmask: 255.255.255.248
+    gateway: 10.241.160.70
+    domain: jhalabs.com
+    dns_server_1: 10.241.183.11
+    dns_server_2: 10.241.183.12
+  - vm_name: vmm_guest10
+    folder_location: "/LABS/VmmTest"
+    os_template: UBU1604
+    datacenter: Springfield
+    cluster: smoetslfvc02
+    disk_size_gb: 16
+    datastore: smoetslfvc02_dsc01
+    memory_size_mb: 512
+    number_cpu: 1
+    number_cpu_cores: 1
+    network_port_group: "vmm_testing02|App01|Epg10"
+    ip_address: 10.241.160.77
+    netmask: 255.255.255.248
+    gateway: 10.241.160.78
+    domain: jhalabs.com
+    dns_server_1: 10.241.183.11
+    dns_server_2: 10.241.183.12                                   
