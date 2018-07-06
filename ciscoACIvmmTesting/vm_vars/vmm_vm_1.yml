@@ -7,7 +7,7 @@ vmmVmwareGuests:
     datacenter: Springfield
     cluster: smoetslfvc02
     disk_size_gb: 16
-    datastore: smoetslfvc02-LUN02-LABIB01
+    datastore: smoetslfvc02_dsc01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1

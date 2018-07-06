@@ -54,4 +54,9 @@
           dns_servers:
           - "{{ item.dns_server_1 }}"
           - "{{ item.dns_server_2 }}"
+        customization:
+          dns_servers:
+          - "{{ item.dns_server_1 }}"
+          - "{{ item.dns_server_2 }}"
+          domain: "{{ item.domain }}"
       with_items: "{{ vmmVmwareGuests }}"
