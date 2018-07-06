@@ -1,0 +1,57 @@
+---
+# Build vmware
+
+- name: Vmware_build_image
+  hosts: vc
+  connection: local
+  gather_facts: no
+
+
+  vars_prompt:
+    - name: vcenter_username
+      prompt: UserID
+      private: no
+    - name: vcenter_password
+      prompt: Password
+      private: yes
+#Expecting just the name of the var file with the extention (.yml in this case)
+    - name: "var_file_var"
+      prompt: "What is the name of your VM Variable File?"
+      private: no
+
+  tasks:
+    - name: OBTAIN CONFIG VARIABLES
+      include_vars: 
+        file: ./vm_vars/{{ var_file_var }}
+          
+    - name: Create a virtual machine from a template
+      vmware_guest:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: false
+        folder: "{{ folder_location }}"
+        name: "{{ item.vm_name }}"
+        state: poweredon
+        template: "{{ item.os_template }}"
+        datacenter: "{{ item.datacenter }}"
+        cluster: "{{ item.cluster }}"
+        disk:
+        - size_gb: "{{ item.disk_size_gb }}"
+          type: thin
+          datastore: "{{ item.datastore }}"
+        hardware:
+          memory_mb: "{{ item.memory_size_mb }}"
+          num_cpus: "{{ item.number_cpu }}"
+          num_cpu_cores_per_socket: "{{ item.number_cpu_cores }}"
+          scsi: paravirtual
+        networks:
+        - name: "{{ item.network_port_group }}"
+          ip: "{{ item.ip_address }}"
+          netmask: "{{ item.netmask }}"
+          gateway: "{{ item.gateway }}"
+          domain: "{{ item.domain }}"
+          dns_servers:
+          - "{{ item.dns_server_1 }}"
+          - "{{ item.dns_server_2 }}"
+      with_items: "{{ vmmVmwareGuests }}"

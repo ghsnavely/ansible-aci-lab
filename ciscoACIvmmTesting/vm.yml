@@ -1,0 +1,52 @@
+---
+# Build vmware
+
+- name: Vmware_build_image
+  hosts: vc
+  connection: local
+  gather_facts: no
+
+
+  vars_prompt:
+    - name: vcenter_username
+      prompt: UserID
+      private: no
+    - name: vcenter_password
+      prompt: Password
+      private: yes 
+  tasks:
+    - name: Create a virtual machine from a template
+      vmware_guest:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: false
+        folder: "/LABS/VmmTest"
+        name: vmm_lab01
+        state: poweredon
+        template: UBU1604
+        datacenter: Springfield
+        cluster: smoetslfvc02
+        disk:
+        - size_gb: 16
+          type: thin
+          datastore: smoetslfvc02-LUN02-LABIB01
+        hardware:
+          memory_mb: 512
+          num_cpus: 1
+          num_cpu_cores_per_socket: 1
+          scsi: paravirtual
+        networks:
+        - name: "vmm_testing01|App01|Epg01"
+          ip: 10.241.160.2
+          netmask: 255.255.255.248
+          gateway: 10.241.160.6
+          domain: jhalabs.com
+          dns_servers:
+          - 10.241.183.11
+          - 10.241.183.12
+        customization:
+          dns_servers:
+          - 10.241.183.11
+          - 10.241.183.12
+             

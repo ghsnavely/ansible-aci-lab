@@ -1,0 +1,20 @@
+---
+
+vmmVmwareGuests:
+  - vm_name: vmm_guest01
+    folder_location: "/LABS/VmmTest"
+    os_template: UBU1604
+    datacenter: Springfield
+    cluster: smoetslfvc02
+    disk_size_gb: 16
+    datastore: smoetslfvc02-LUN02-LABIB01
+    memory_size_mb: 512
+    number_cpu: 1
+    number_cpu_cores: 1
+    network_port_group: "vmm_testing01|App01|Epg01"
+    ip_address: 10.241.160.2
+    netmask: 255.255.255.248
+    gateway: 10.241.160.6
+    domain: jhalabs.com
+    dns_server_1: 10.241.183.11
+    dns_server_2: 10.241.183.12 
