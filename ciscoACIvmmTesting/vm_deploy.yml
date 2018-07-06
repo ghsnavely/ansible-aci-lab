@@ -30,7 +30,7 @@
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
         validate_certs: false
-        folder: "{{ folder_location }}"
+        folder: "{{ item.folder_location }}"
         name: "{{ item.vm_name }}"
         state: poweredon
         template: "{{ item.os_template }}"
