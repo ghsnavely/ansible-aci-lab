@@ -35,7 +35,7 @@
 
 #### Sample TEST
 
-    Deploy aci configuration for 10 epgs
+    Deploy Cisco ACI configuration for 10 epgs
 
     $ ansible-playbook aci_build.yml
     UserID: "cert_key_user"
@@ -44,7 +44,7 @@
     Deploy 10 vmware guests
 
     $ ansible-playbook vm_deploy.yml
-    UserID: "vmware_creds"
+    UserID: "vmware_user"
     Password: "vmware_password"
     What is the name of your VM Variable File?: vmm_vm_10.yml
 
@@ -61,3 +61,17 @@
     node 10.241.160.53 is up
     node 10.241.160.61 is up
     node 10.241.160.69 is up
+
+    Testing Cleanup
+
+    Cleanup Vmware
+
+    $ ansible-playbook vm_cleanup.yml
+    UserID: "vmware_user"
+    Password: "vmware_password"
+    What is the name of your VM Variable File?: vmm_vm_10.yml
+
+    Cleanup Cisco ACI
+
+    $ ansible-playbook aci_cleanup.yml
+    UserID: "cert_key_user"
