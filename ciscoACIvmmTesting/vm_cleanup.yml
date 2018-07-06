@@ -24,7 +24,7 @@
       include_vars: 
         file: ./vm_vars/{{ var_file_var }}
           
-    - name: Shutdown Virtual Machines Created
+    - name: Shutdown Virtual Machines In Var File
       vmware_guest:
         hostname: "{{ inventory_hostname }}"
         username: "{{ vcenter_username }}"
@@ -34,3 +34,15 @@
         name: "{{ item.vm_name }}"
         state: poweredoff
       with_items: "{{ vmmVmwareGuests }}"
+    
+    - name: Remove Virtual Machines In Var File
+      vmware_guest:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: false
+        folder: "{{ item.folder_location }}"
+        name: "{{ item.vm_name }}"
+        state: absent
+      with_items: "{{ vmmVmwareGuests }}"      
+
