@@ -36,6 +36,7 @@
 #### Sample TEST
 
     Deploy aci configuration for 10 epgs
+
     $ ansible-playbook aci_build.yml
     UserID: "cert_key_user"
     What is the name of your Variable File?: vmm_test_10.yml
