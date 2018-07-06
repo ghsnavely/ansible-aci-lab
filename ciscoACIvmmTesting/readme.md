@@ -36,20 +36,19 @@
 #### Sample TEST
 
     Deploy aci configuration for 10 epgs
-    ```sh
     $ ansible-playbook aci_build.yml
     UserID: "cert_key_user"
     What is the name of your Variable File?: vmm_test_10.yml
-    ```
+
     Deploy 10 vmware guests
-    ```sh
+
     $ ansible-playbook vm_deploy.yml
     UserID: "vmware_creds"
     Password: "vmware_password"
     What is the name of your VM Variable File?: vmm_vm_10.yml
-    ```
+
     Test ping
-    ```sh
+
     $ bash ping_test_10.sh
     Fri Jul  6 15:10:00 CDT 2018
     node 10.241.160.5 is up
@@ -61,4 +60,3 @@
     node 10.241.160.53 is up
     node 10.241.160.61 is up
     node 10.241.160.69 is up
-    ```
