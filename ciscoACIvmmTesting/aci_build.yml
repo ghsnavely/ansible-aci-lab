@@ -159,7 +159,7 @@
         method: post
         validate_certs: no
         use_ssl: yes        
-        path: 'api/node/mo/uni/tn-{{ tenant_var }}/ap-{{ item.bd_app_profile_var }}/epg-{{ item.bd_epg_var }}.json'
+        path: 'api/node/mo/uni/tn-{{ item.tenant_var }}/ap-{{ item.bd_app_profile_var }}/epg-{{ item.bd_epg_var }}.json'
         content: {
     "fvRsDomAtt": {
         "attributes": {
