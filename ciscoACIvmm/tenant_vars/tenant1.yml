@@ -61,7 +61,7 @@ bridgeDomainEpg:
     gateway_ip_var: 10.241.160.30
     subnet_mask_var: 27
     net_scope_var: public
-    domain_var: aci-vc6501
+    domain_var: vmm-vc67
     domain_type_var: vmm
     vm_provider_var: vmware  
   - bd_epg_var: Banana
@@ -70,7 +70,7 @@ bridgeDomainEpg:
     gateway_ip_var: 10.241.160.62
     subnet_mask_var: 27
     net_scope_var: public
-    domain_var: aci-vc6501
+    domain_var: vmm-vc67
     domain_type_var: vmm
     vm_provider_var: vmware       
   - bd_epg_var: Arugula
@@ -79,7 +79,7 @@ bridgeDomainEpg:
     gateway_ip_var: 10.241.160.94
     subnet_mask_var: 27
     net_scope_var: public
-    domain_var: aci-vc6501
+    domain_var: vmm-vc67
     domain_type_var: vmm
     vm_provider_var: vmware      
   - bd_epg_var: BellPepper
@@ -88,11 +88,11 @@ bridgeDomainEpg:
     gateway_ip_var: 10.241.160.126
     subnet_mask_var: 27
     net_scope_var: public
-    domain_var: aci-vc6501
+    domain_var: vmm-vc67
     domain_type_var: vmm
     vm_provider_var: vmware        
 
-
+lacp_var: aci_lacp
 ### L3Out Information
 ### shared l3-out in this example
 
