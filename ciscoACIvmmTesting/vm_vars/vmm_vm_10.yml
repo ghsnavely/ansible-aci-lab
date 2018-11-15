@@ -5,10 +5,10 @@ vmmVmwareGuests:
   - vm_name: vmm_guest01
     folder_location: "/LABS/VmmTest"
     os_template: UBU1604
-    datacenter: Springfield
-    cluster: smoetslfvc02
+    datacenter: Monster_Island
+    cluster: Rodan
     disk_size_gb: 16
-    datastore: smoetslfvc02_dsc01
+    datastore: Rodan_SC01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1
@@ -22,10 +22,10 @@ vmmVmwareGuests:
   - vm_name: vmm_guest02
     folder_location: "/LABS/VmmTest"
     os_template: UBU1604
-    datacenter: Springfield
-    cluster: smoetslfvc02
+    datacenter: Monster_Island
+    cluster: Rodan
     disk_size_gb: 16
-    datastore: smoetslfvc02_dsc01
+    datastore: Rodan_SC01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1
@@ -39,10 +39,10 @@ vmmVmwareGuests:
   - vm_name: vmm_guest03
     folder_location: "/LABS/VmmTest"
     os_template: UBU1604
-    datacenter: Springfield
-    cluster: smoetslfvc02
+    datacenter: Monster_Island
+    cluster: Rodan
     disk_size_gb: 16
-    datastore: smoetslfvc02_dsc01
+    datastore: Rodan_SC01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1
@@ -56,10 +56,10 @@ vmmVmwareGuests:
   - vm_name: vmm_guest04
     folder_location: "/LABS/VmmTest"
     os_template: UBU1604
-    datacenter: Springfield
-    cluster: smoetslfvc02
+    datacenter: Monster_Island
+    cluster: Rodan
     disk_size_gb: 16
-    datastore: smoetslfvc02_dsc01
+    datastore: Rodan_SC01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1
@@ -73,10 +73,10 @@ vmmVmwareGuests:
   - vm_name: vmm_guest05
     folder_location: "/LABS/VmmTest"
     os_template: UBU1604
-    datacenter: Springfield
-    cluster: smoetslfvc02
+    datacenter: Monster_Island
+    cluster: Rodan
     disk_size_gb: 16
-    datastore: smoetslfvc02_dsc01
+    datastore: Rodan_SC01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1
@@ -91,10 +91,10 @@ vmmVmwareGuests:
   - vm_name: vmm_guest06
     folder_location: "/LABS/VmmTest"
     os_template: UBU1604
-    datacenter: Springfield
-    cluster: smoetslfvc02
+    datacenter: Monster_Island
+    cluster: Rodan
     disk_size_gb: 16
-    datastore: smoetslfvc02_dsc01
+    datastore: Rodan_SC01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1
@@ -108,10 +108,10 @@ vmmVmwareGuests:
   - vm_name: vmm_guest07
     folder_location: "/LABS/VmmTest"
     os_template: UBU1604
-    datacenter: Springfield
-    cluster: smoetslfvc02
+    datacenter: Monster_Island
+    cluster: Rodan
     disk_size_gb: 16
-    datastore: smoetslfvc02_dsc01
+    datastore: Rodan_SC01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1
@@ -125,10 +125,10 @@ vmmVmwareGuests:
   - vm_name: vmm_guest08
     folder_location: "/LABS/VmmTest"
     os_template: UBU1604
-    datacenter: Springfield
-    cluster: smoetslfvc02
+    datacenter: Monster_Island
+    cluster: Rodan
     disk_size_gb: 16
-    datastore: smoetslfvc02_dsc01
+    datastore: Rodan_SC01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1
@@ -142,10 +142,10 @@ vmmVmwareGuests:
   - vm_name: vmm_guest09
     folder_location: "/LABS/VmmTest"
     os_template: UBU1604
-    datacenter: Springfield
-    cluster: smoetslfvc02
+    datacenter: Monster_Island
+    cluster: Rodan
     disk_size_gb: 16
-    datastore: smoetslfvc02_dsc01
+    datastore: Rodan_SC01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1
@@ -159,10 +159,10 @@ vmmVmwareGuests:
   - vm_name: vmm_guest10
     folder_location: "/LABS/VmmTest"
     os_template: UBU1604
-    datacenter: Springfield
-    cluster: smoetslfvc02
+    datacenter: Monster_Island
+    cluster: Rodan
     disk_size_gb: 16
-    datastore: smoetslfvc02_dsc01
+    datastore: Rodan_SC01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1

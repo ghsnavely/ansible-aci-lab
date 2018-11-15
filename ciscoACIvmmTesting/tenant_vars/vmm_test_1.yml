@@ -70,9 +70,9 @@ bridgeDomainEpg:
     gateway_ip_var: 10.241.160.6
     subnet_mask_var: 29
     net_scope_var: public
-    domain_var: aci-vc6501
+    domain_var: vmm-vc67
     domain_type_var: vmm
     vm_provider_var: vmware  
                
 
-
+lacp_var: aci_lacp

@@ -151,20 +151,52 @@
         bd: "{{ item.bd_epg_var }}"
         epg: "{{ item.bd_epg_var}}"
       with_items: "{{ bridgeDomainEpg }}"
-    - name: TASK 5b - ADD VMM Domain to NEW EPGs on {{ inventory_hostname }}    
-      aci_epg_to_domain:
+    - name: TASK 5b - ADD Vmware VMM Domain to NEW EPGs on {{ inventory_hostname }}    
+      aci_rest:
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
         private_key: "~/{{ aci_user_id }}.key"
-        state: present        
+        method: post
         validate_certs: no
-        use_ssl: yes
-        tenant: "{{ item.tenant_var }}"
-        ap: "{{ item.bd_app_profile_var }}"        
-        epg: "{{ item.bd_epg_var }}"
-        domain: "{{ item.domain_var }}"
-        domain_type: "{{ item.domain_type_var }}"
-        vm_provider: "{{ item.vm_provider_var }}"
+        use_ssl: yes        
+        path: 'api/node/mo/uni/tn-{{ tenant_var }}/ap-{{ item.bd_app_profile_var }}/epg-{{ item.bd_epg_var }}.json'
+        content: {
+    "fvRsDomAtt": {
+        "attributes": {
+            "resImedcy": "immediate",
+            "tDn": "uni/vmmp-VMware/dom-{{ item.domain_var }}",
+            "status": "created"
+        },
+        "children": [
+            {
+                "fvAEPgLagPolAtt": {
+                    "attributes": {
+                        "status": "created"
+                    },
+                    "children": [
+                        {
+                            "fvRsVmmVSwitchEnhancedLagPol": {
+                                "attributes": {
+                                    "tDn": "uni/vmmp-VMware/dom-{{ item.domain_var }}/vswitchpolcont/enlacplagp-{{ lacp_var }}",
+                                    "status": "created"
+                                },
+                                "children": []
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "vmmSecP": {
+                    "attributes": {
+                        "status": "created"
+                    },
+                    "children": []
+                }
+            }
+        ]
+    }
+}
       with_items: "{{ bridgeDomainEpg }}"
 
 # Pulls the json for Tenant 

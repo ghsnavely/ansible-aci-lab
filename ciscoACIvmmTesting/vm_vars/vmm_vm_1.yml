@@ -4,10 +4,10 @@ vmmVmwareGuests:
   - vm_name: vmm_guest01
     folder_location: "/LABS/VmmTest"
     os_template: UBU1604
-    datacenter: Springfield
-    cluster: smoetslfvc02
+    datacenter: Monster_Island
+    cluster: Rodan
     disk_size_gb: 16
-    datastore: smoetslfvc02_dsc01
+    datastore: Rodan-SC01
     memory_size_mb: 512
     number_cpu: 1
     number_cpu_cores: 1

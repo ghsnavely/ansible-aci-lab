@@ -177,3 +177,4 @@ bridgeDomainEpg:
     vm_provider_var: vmware                  
 
 
+lacp_var: aci_lacp
