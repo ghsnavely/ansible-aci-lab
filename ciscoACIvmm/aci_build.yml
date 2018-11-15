@@ -153,7 +153,7 @@
       aci_rest:
         hostname: "{{ inventory_hostname }}"
         username: "{{ aci_user_id }}"
-        password: "{{ aci_user_pass }}"
+        private_key: "~/{{ aci_user_id }}.key"
         method: post
         validate_certs: no
         use_ssl: yes        
